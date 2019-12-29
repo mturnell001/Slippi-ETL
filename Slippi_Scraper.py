@@ -5,10 +5,12 @@ import time
 import re
 from slippi import Game
 
-def slippi_scraper(tournament,filter,page='1'):
+debug = True
+
+def slippi_scraper(tournament,filter,page='1',DL_directory="D:/Slippi-ETL/Replays"):
     #initialize the browser properly
     prefs = {
-            "download.default_directory" : f"C:/Users/Cuno/Desktop/ETL proj/Replays"
+            "download.default_directory" : DL_directory
         }
     chrome_options = webdriver.ChromeOptions()
     chrome_options.add_experimental_option("prefs", prefs)
@@ -50,9 +52,12 @@ filter_dict = ['Day+3','Day+4',
                'BTSSmash','BTSSmash2','BTSSmash3','BTSSmash4',
                'BTSsmash','BTSsmash2','BTSsmash3','BTSsmash4']                
 
-#for key in tourneyID_dict:
-    #for filter in filter_dict:
-        #slippi_scraper(tourneyID_dict[key],filter)
+if debug == False:
+    for key in tourneyID_dict:
+        for filter in filter_dict:
+            targetDir = f'D:/Slippi-ETL/Replays/{key}/{filter}'
+            slippi_scraper(tourneyID_dict[key],filter,DL_directory=targetDir)
     
 #test run, only has 2 download links on the page
-slippi_scraper('109637','BTSSmash',page='19')
+if debug == True:
+    slippi_scraper('109637','BTSSmash',page='19')
