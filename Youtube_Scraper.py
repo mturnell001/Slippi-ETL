@@ -5,10 +5,13 @@ import time
 from pymongo import MongoClient
 
 def mongoSetup():
+    '''Initializes a localhost mongoDB, and returns the MongoClient object'''
     db_url = 'mongodb://localhost:27017'
     return(MongoClient(db_url))
 
 def yt_playlist_scraper(playlist):
+    '''For a given youtube playlist, with the URL being of the 1st video of the playlist,
+    scrape all the video titles in the playlist into a list, which is then returned'''
     with Browser('chrome', headless=True) as browser:
 
         url = playlist
@@ -25,6 +28,8 @@ def yt_playlist_scraper(playlist):
     return(title_list)
     
 def title_Parser(video_titles):
+    '''Given a list of well-behaved YouTube SSBM video titles, parse the titles into
+    characters and players, then return a list of dictionaries with that information'''
     video_info = []
     vid_id = 0
     for key in video_titles:

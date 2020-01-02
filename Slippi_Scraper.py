@@ -5,14 +5,16 @@ import time
 import re
 from slippi import Game
 
-debug = True
+debug = False
 
-def slippi_scraper(tournament,filter,page='1',DL_directory="D:/Slippi-ETL/Replays"):
+def slippi_scraper(tournament,filter,page='1',DL_directory="D:\\Slippi-ETL\\Replays"):
     #initialize the browser properly
     prefs = {
-            "download.default_directory" : DL_directory
+            "download.default_directory" : DL_directory,
+            "download.prompt_for_download" : "false"
         }
     chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_argument("user-data-dir=C:\\Users\\Cuno\\AppData\\Local\\Google\\Chrome\\User Data\\Default")
     chrome_options.add_experimental_option("prefs", prefs)
     #this is an attempt to make the downloads succeed by 'spoofing' an agent-string
     agent_string = "Mozilla/5.0 (Linux; Android 4.0.4; Galaxy Nexus Build/IMM76B) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.133 Mobile Safari/535.19"
@@ -23,7 +25,7 @@ def slippi_scraper(tournament,filter,page='1',DL_directory="D:/Slippi-ETL/Replay
                  user_agent=agent_string) as browser:
         url = f"https://slippi.gg/tournament/{tournament}?filter={filter}&page={page}"
         browser.visit(url)
-        time.sleep(1)
+        time.sleep(5)
 
         
     #find all the download links, click all of them, then try to go to the next page
@@ -55,7 +57,7 @@ filter_dict = ['Day+3','Day+4',
 if debug == False:
     for key in tourneyID_dict:
         for filter in filter_dict:
-            targetDir = f'D:/Slippi-ETL/Replays/{key}/{filter}'
+            targetDir = f'D:\\Slippi-ETL\\Replays\\{key}\\{filter}'
             slippi_scraper(tourneyID_dict[key],filter,DL_directory=targetDir)
     
 #test run, only has 2 download links on the page
