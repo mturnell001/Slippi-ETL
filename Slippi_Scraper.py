@@ -3,7 +3,6 @@ from bs4 import BeautifulSoup as bs
 from selenium import webdriver
 import time
 import re
-from slippi import Game
 
 debug = False
 
