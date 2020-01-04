@@ -188,9 +188,8 @@ def main():
     slippi_db = client.slippi_replays
 
     tournaments = [ 'Smash Summit 8' ,
-                    'Shine 2019 Top 48' ,
-                    'Mainstage' ,
-                    'The Big House 9']
+                    'Shine 2019' ,
+                    'Mainstage']
 
     sets = set_collation(slippi_db, tournaments)
     #cull games based on set length
