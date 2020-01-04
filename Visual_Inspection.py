@@ -27,10 +27,10 @@ client = mongoSetup()
 slippi_db = client.slippi_replays
 
 #from visually inspecting the flagged sets, these sets are not tournament sets
-#sets_to_drop = [17,18,43,130,147,171]
+sets_to_drop = [17,18,43,130,147,171]
 
-#for set_id in sets_to_drop:
-   # slippi_db.sets.delete_one({"set_id" : set_id})
+for set_id in sets_to_drop:
+    slippi_db.sets.delete_one({"set_id" : set_id})
 
 #Mainstage sets needing to be split
 #This is all one-time code
