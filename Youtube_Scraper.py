@@ -16,7 +16,7 @@ def yt_playlist_scraper(playlist):
 
         url = playlist
         browser.visit(url)
-        #time.sleep(1)
+        time.sleep(3)
         html = browser.html
         soup = bs(html, "html.parser")
 
@@ -63,15 +63,14 @@ def main():
 
     #list of youtube playlists to scrape
     playlists = {'Smash Summit 8' : 'https://www.youtube.com/watch?v=ccfhiugzmNw&list=PLCR3KcbG-XGt0YNADoCoGSFwG6X0edPc9&index=1',
-             'Shine 2019 Top 48' : 'https://www.youtube.com/watch?v=n41vnp6Uy-w&list=PLCR3KcbG-XGvpRJx_ZV95_ciJJHdzTYkH&index=1',
-             'Mainstage' : 'https://www.youtube.com/watch?v=3YIjiZiltPs&list=PLCR3KcbG-XGu1fSZ2N675NLUWj7w1GfNJ&index=1',
-             'The Big House 9' : 'https://www.youtube.com/watch?v=d511Gm5Q_0M&list=PLCR3KcbG-XGt1GbO15C1xiAA7o4JGxaI1&index=1',
-             'The Big House 9 Top 8' : 'https://www.youtube.com/watch?v=Wme9chINNyU&list=PLCR3KcbG-XGuHEZk-xUilbhUREsz3KKtY&index=1'}
-
+             'Shine 2019' : 'https://www.youtube.com/watch?v=n41vnp6Uy-w&list=PLCR3KcbG-XGvpRJx_ZV95_ciJJHdzTYkH&index=1',
+             'Mainstage' : 'https://www.youtube.com/watch?v=3YIjiZiltPs&list=PLCR3KcbG-XGu1fSZ2N675NLUWj7w1GfNJ&index=1'}
+             
     #scrape the playlists for the video titles
     video_titles = {}
     for tourney in playlists:
         video_titles[tourney] = yt_playlist_scraper(playlists[tourney])
+        print("Done with tourney")
     
     #parse the video titles into a dictionary
     video_info = title_Parser(video_titles)

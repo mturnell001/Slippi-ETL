@@ -13,7 +13,7 @@ def char_standardizing(collection, fields=[]):
     #a dictionary of character name aliases that video titles may use
     #will be used to standardize character names
     #if a character is not in the list, look for exact match only
-    char_alias = {'CAPTAIN_FALCON' : ['Captain Falcon', 'C. Falcon', 'Capt. Falcon', 'CF', 'C.F', 'Falcon'],
+    char_alias = {'CAPTAIN_FALCON' : ['Captain Falcon', 'C. Falcon', 'Capt. Falcon', 'CF', 'C.F', 'Falcon','Captain Falco'],
                     'DONKEY_KONG' : ['DONKEY KONG','DK','D. Kong'],
                     'GAME_AND_WATCH' : ['Mr. Game and Watch', 'Mr Game and Watch', 'Gnw', 
                                         'G&W', 'Mr G&W', 'Mr. G&W', 'Mr Gnw', 'Mr. Gnw', 
@@ -69,13 +69,15 @@ def char_standardizing(collection, fields=[]):
             #for each string in our list, check it against our alias list and the list of slippi names
             #if there's a match, update the collection field to the 'proper' name
             for char_name in char_names:
+                char_name = char_name.strip()
                 for alias in char_alias:
                     if char_name.lower() in [x.lower() for x in char_alias[alias]]:
                         fixed_char_names.append(alias)
+                if debug: print(fixed_char_names)
                 for slippi_name in slippi_char_names:
-                    if char_name.lower() in slippi_name.lower():
+                    if char_name.lower() == slippi_name.lower():
                         fixed_char_names.append(slippi_name)
-            if debug: print(fixed_char_names)
+                if debug: print(fixed_char_names)
             if not debug: collection.update_one({'vid-id' : x['vid-id']}, { "$set" : {field : fixed_char_names}})
 
 
